@@ -50,21 +50,26 @@ static int __ath_regd_init(struct ath_regulatory *reg);
 #define ATH9K_5GHZ_5725_5850	REG_RULE(5725-10, 5850+10, 80, 0, 30,\
 					 NL80211_RRF_NO_IR)
 
+/* ITS frequency band */
+#define ATH9K_5GHZ_5860_5920	REG_RULE(5860-10, 5920+10, 10, 0, 0, 0)
+
 #define ATH9K_2GHZ_ALL		ATH9K_2GHZ_CH01_11, \
 				ATH9K_2GHZ_CH12_13, \
 				ATH9K_2GHZ_CH14
 
 #define ATH9K_5GHZ_ALL		ATH9K_5GHZ_5150_5350, \
-				ATH9K_5GHZ_5470_5850
+				ATH9K_5GHZ_5470_5850, \
+				ATH9K_5GHZ_5860_5920
 
 /* This one skips what we call "mid band" */
 #define ATH9K_5GHZ_NO_MIDBAND	ATH9K_5GHZ_5150_5350, \
-				ATH9K_5GHZ_5725_5850
+				ATH9K_5GHZ_5725_5850, \
+				ATH9K_5GHZ_5860_5920
 
 /* Can be used for:
  * 0x60, 0x61, 0x62 */
 static const struct ieee80211_regdomain ath_world_regdom_60_61_62 = {
-	.n_reg_rules = 5,
+	.n_reg_rules = 6,
 	.alpha2 =  "99",
 	.reg_rules = {
 		ATH9K_2GHZ_ALL,
@@ -74,7 +79,7 @@ static const struct ieee80211_regdomain ath_world_regdom_60_61_62 = {
 
 /* Can be used by 0x63 and 0x65 */
 static const struct ieee80211_regdomain ath_world_regdom_63_65 = {
-	.n_reg_rules = 4,
+	.n_reg_rules = 5,
 	.alpha2 =  "99",
 	.reg_rules = {
 		ATH9K_2GHZ_CH01_11,
@@ -85,7 +90,7 @@ static const struct ieee80211_regdomain ath_world_regdom_63_65 = {
 
 /* Can be used by 0x64 only */
 static const struct ieee80211_regdomain ath_world_regdom_64 = {
-	.n_reg_rules = 3,
+	.n_reg_rules = 4,
 	.alpha2 =  "99",
 	.reg_rules = {
 		ATH9K_2GHZ_CH01_11,
@@ -95,7 +100,7 @@ static const struct ieee80211_regdomain ath_world_regdom_64 = {
 
 /* Can be used by 0x66 and 0x69 */
 static const struct ieee80211_regdomain ath_world_regdom_66_69 = {
-	.n_reg_rules = 3,
+	.n_reg_rules = 4,
 	.alpha2 =  "99",
 	.reg_rules = {
 		ATH9K_2GHZ_CH01_11,
@@ -105,7 +110,7 @@ static const struct ieee80211_regdomain ath_world_regdom_66_69 = {
 
 /* Can be used by 0x67, 0x68, 0x6A and 0x6C */
 static const struct ieee80211_regdomain ath_world_regdom_67_68_6A_6C = {
-	.n_reg_rules = 4,
+	.n_reg_rules = 5,
 	.alpha2 =  "99",
 	.reg_rules = {
 		ATH9K_2GHZ_CH01_11,
