@@ -783,6 +783,9 @@ unsigned int cfg80211_classify8021d(struct sk_buff *skb,
 	case htons(ETH_P_80221):
 		/* 802.21 is always network control traffic */
 		return 7;
+	case htons(ETH_P_GEONET):
+		/* ETSI ITS GeoNetworking, keep priority */
+		return skb->priority;
 	default:
 		return 0;
 	}

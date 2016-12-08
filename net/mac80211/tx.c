@@ -2685,8 +2685,10 @@ static struct sk_buff *ieee80211_build_hdr(struct ieee80211_sub_if_data *sdata,
 	if (sta) {
 		authorized = test_sta_flag(sta, WLAN_STA_AUTHORIZED);
 		wme_sta = sta->sta.wme;
-	} else if (ieee80211_vif_is_mesh(&sdata->vif)) {
-		/* For mesh, the use of the QoS header is mandatory */
+	} else if (ieee80211_vif_is_mesh(&sdata->vif) ||
+		   sdata->vif.type == NL80211_IFTYPE_OCB &&
+		   cpu_to_be16(ethertype) == cpu_to_be16(ETH_P_GEONET)) {
+		/* For mesh and GeoNet, the use of the QoS header is mandatory */
 		wme_sta = true;
 	}
 
