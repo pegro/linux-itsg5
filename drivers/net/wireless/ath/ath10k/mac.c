@@ -577,6 +577,8 @@ chan_to_phymode(const struct cfg80211_chan_def *chandef)
 		break;
 	case NL80211_BAND_5GHZ:
 		switch (chandef->width) {
+		case NL80211_CHAN_WIDTH_5:
+		case NL80211_CHAN_WIDTH_10:
 		case NL80211_CHAN_WIDTH_20_NOHT:
 			phymode = MODE_11A;
 			break;
@@ -594,10 +596,6 @@ chan_to_phymode(const struct cfg80211_chan_def *chandef)
 			break;
 		case NL80211_CHAN_WIDTH_80P80:
 			phymode = MODE_11AC_VHT80_80;
-			break;
-		case NL80211_CHAN_WIDTH_5:
-		case NL80211_CHAN_WIDTH_10:
-			phymode = MODE_UNKNOWN;
 			break;
 		}
 		break;
@@ -1036,6 +1034,12 @@ static int ath10k_monitor_vdev_start(struct ath10k *ar, int vdev_id)
 	arg.channel.mode = chan_to_phymode(chandef);
 	arg.channel.chan_radar =
 			!!(channel->flags & IEEE80211_CHAN_RADAR);
+
+	if (chandef->width == NL80211_CHAN_WIDTH_10) {
+		arg.channel.rate_half = 1;
+	} else if (chandef->width == NL80211_CHAN_WIDTH_5) {
+		arg.channel.rate_quarter = 1;
+	}
 
 	arg.channel.min_power = 0;
 	arg.channel.max_power = channel->max_power * 2;
@@ -1487,6 +1491,12 @@ static int ath10k_vdev_start_restart(struct ath10k_vif *arvif,
 	arg.channel.max_power = chandef->chan->max_power * 2;
 	arg.channel.max_reg_power = chandef->chan->max_reg_power * 2;
 	arg.channel.max_antenna_gain = chandef->chan->max_antenna_gain * 2;
+
+	if (chandef->width == NL80211_CHAN_WIDTH_10) {
+		arg.channel.rate_half = 1;
+	} else if (chandef->width == NL80211_CHAN_WIDTH_5) {
+		arg.channel.rate_quarter = 1;
+	}
 
 	if (arvif->vdev_type == WMI_VDEV_TYPE_AP) {
 		arg.ssid = arvif->u.ap.ssid;
@@ -8853,6 +8863,7 @@ int ath10k_mac_register(struct ath10k *ar)
 
 	ar->hw->wiphy->flags |= WIPHY_FLAG_HAS_REMAIN_ON_CHANNEL;
 	ar->hw->wiphy->flags |= WIPHY_FLAG_HAS_CHANNEL_SWITCH;
+	ar->hw->wiphy->flags |= WIPHY_FLAG_SUPPORTS_5_10_MHZ;
 	ar->hw->wiphy->max_remain_on_channel_duration = 5000;
 
 	ar->hw->wiphy->flags |= WIPHY_FLAG_AP_UAPSD;

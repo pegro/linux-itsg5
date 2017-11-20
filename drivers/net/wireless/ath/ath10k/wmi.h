@@ -2061,6 +2061,8 @@ struct wmi_channel_arg {
 	bool allow_vht;
 	bool ht40plus;
 	bool chan_radar;
+	bool rate_half;
+	bool rate_quarter;
 	/* note: power unit is 0.5 dBm */
 	u32 min_power;
 	u32 max_power;
@@ -2082,6 +2084,8 @@ enum wmi_channel_change_cause {
 #define WMI_CHAN_FLAG_DFS            (1 << 10)
 #define WMI_CHAN_FLAG_ALLOW_HT       (1 << 11)
 #define WMI_CHAN_FLAG_ALLOW_VHT      (1 << 12)
+#define WMI_CHAN_FLAG_QUARTER        (1 << 13)
+#define WMI_CHAN_FLAG_HALF           (1 << 14)
 
 /* Indicate reason for channel switch */
 #define WMI_CHANNEL_CHANGE_CAUSE_CSA (1 << 13)

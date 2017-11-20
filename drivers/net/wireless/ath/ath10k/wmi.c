@@ -1700,6 +1700,10 @@ void ath10k_wmi_put_wmi_channel(struct wmi_channel *ch,
 		flags |= WMI_CHAN_FLAG_HT40_PLUS;
 	if (arg->chan_radar)
 		flags |= WMI_CHAN_FLAG_DFS;
+	if (arg->rate_half)
+		flags |= WMI_CHAN_FLAG_HALF;
+	if (arg->rate_quarter)
+		flags |= WMI_CHAN_FLAG_QUARTER;
 
 	ch->mhz = __cpu_to_le32(arg->freq);
 	ch->band_center_freq1 = __cpu_to_le32(arg->band_center_freq1);
