@@ -401,15 +401,21 @@ static void ath9k_hw_init_config(struct ath_hw *ah)
 	ah->config.cwm_ignore_extcca = false;
 	ah->config.analog_shiftreg = 1;
 
-	ah->config.rx_intr_mitigation = true;
+	ah->config.rx_intr_mitigation = common->rx_intr_mitigation;
 
-	if (AR_SREV_9300_20_OR_LATER(ah)) {
+	if(common->rimt_last && common->rimt_first) {
+		ah->config.rimt_last = common->rimt_last;
+		ah->config.rimt_first = common->rimt_first;
+	} else if (AR_SREV_9300_20_OR_LATER(ah)) {
 		ah->config.rimt_last = 500;
 		ah->config.rimt_first = 2000;
 	} else {
 		ah->config.rimt_last = 250;
 		ah->config.rimt_first = 700;
 	}
+
+	ath_err(common, "RX interrupt mitigation %s, th_last=%d, th_first=%d\n",
+		ah->config.rx_intr_mitigation ? "enabled" : "disabled", ah->config.rimt_last, ah->config.rimt_first);
 
 	if (AR_SREV_9462(ah) || AR_SREV_9565(ah))
 		ah->config.pll_pwrsave = 7;

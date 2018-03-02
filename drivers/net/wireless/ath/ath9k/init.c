@@ -68,6 +68,18 @@ static int ath9k_ps_enable;
 module_param_named(ps_enable, ath9k_ps_enable, int, 0444);
 MODULE_PARM_DESC(ps_enable, "Enable WLAN PowerSave");
 
+static int ath9k_rx_intr_mitigation = 1;
+module_param_named(rx_intr_mitigation, ath9k_rx_intr_mitigation, int, 0444);
+MODULE_PARM_DESC(rx_intr_mitigation, "Enable RX interrupt mitigation");
+
+static int ath9k_rimt_last;
+module_param_named(rimt_last, ath9k_rimt_last, int, 0444);
+MODULE_PARM_DESC(rimt_last, "RX interrupt mitigation threshold last");
+
+static int ath9k_rimt_first;
+module_param_named(rimt_first, ath9k_rimt_first, int, 0444);
+MODULE_PARM_DESC(rimt_first, "RX interrupt mitigation threshold first");
+
 #ifdef CONFIG_ATH9K_CHANNEL_CONTEXT
 
 int ath9k_use_chanctx;
@@ -694,6 +706,9 @@ static int ath9k_init_softc(u16 devid, struct ath_softc *sc,
 	common->debug_mask = ath9k_debug;
 	common->btcoex_enabled = ath9k_btcoex_enable == 1;
 	common->disable_ani = false;
+	common->rx_intr_mitigation = ath9k_rx_intr_mitigation == 1;
+	common->rimt_last = ath9k_rimt_last;
+	common->rimt_first = ath9k_rimt_first;
 
 	/*
 	 * Platform quirks.
