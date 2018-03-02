@@ -182,6 +182,10 @@ struct ath_common {
 	bool disable_ani;
 	bool bt_ant_diversity;
 
+	bool rx_intr_mitigation;
+	u16 rimt_last;
+	u16 rimt_first;
+
 	int last_rssi;
 	struct ieee80211_supported_band sbands[NUM_NL80211_BANDS];
 };
