@@ -4827,6 +4827,7 @@ enum wmi_vdev_subtype {
 	WMI_VDEV_SUBTYPE_PROXY_STA,
 	WMI_VDEV_SUBTYPE_MESH_11S,
 	WMI_VDEV_SUBTYPE_MESH_NON_11S,
+	WMI_VDEV_SUBTYPE_OCB,
 };
 
 enum wmi_vdev_subtype_legacy {
@@ -4844,6 +4845,7 @@ enum wmi_vdev_subtype_10_2_4 {
 	WMI_VDEV_SUBTYPE_10_2_4_P2P_GO    = 3,
 	WMI_VDEV_SUBTYPE_10_2_4_PROXY_STA = 4,
 	WMI_VDEV_SUBTYPE_10_2_4_MESH_11S  = 5,
+	WMI_VDEV_SUBTYPE_10_2_4_OCB       = 6,
 };
 
 enum wmi_vdev_subtype_10_4 {
