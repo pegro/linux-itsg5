@@ -3344,7 +3344,7 @@ static int ath10k_wmi_10_4_op_pull_fw_stats(struct ath10k *ar,
 
 void ath10k_wmi_event_update_stats(struct ath10k *ar, struct sk_buff *skb)
 {
-	ath10k_dbg(ar, ATH10K_DBG_WMI, "WMI_UPDATE_STATS_EVENTID\n");
+	//ath10k_dbg(ar, ATH10K_DBG_WMI, "WMI_UPDATE_STATS_EVENTID\n");
 	ath10k_debug_fw_stats_process(ar, skb);
 }
 
@@ -3393,6 +3393,9 @@ void ath10k_wmi_event_vdev_start_resp(struct ath10k *ar, struct sk_buff *skb)
 		 */
 		ar->last_wmi_vdev_start_status = -EINVAL;
 	}
+
+	ath10k_dbg(ar, ATH10K_DBG_WMI, "resp: vdev_id %d req_id: %d resp_type: %d status: %d\n",
+		__le32_to_cpu(arg.vdev_id), __le32_to_cpu(arg.req_id), __le32_to_cpu(arg.resp_type), __le32_to_cpu(arg.status));
 
 out:
 	complete(&ar->vdev_setup_done);
