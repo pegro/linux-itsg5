@@ -51,7 +51,7 @@ static int __ath_regd_init(struct ath_regulatory *reg);
 					 NL80211_RRF_NO_IR)
 
 /* ITS frequency band */
-#define ATH9K_5GHZ_5860_5920	REG_RULE(5860-10, 5920+10, 10, 0, 0, 0)
+#define ATH9K_5GHZ_5860_5920	REG_RULE(5860-10, 5920+10, 20, 0, 0, 0)
 
 #define ATH9K_2GHZ_ALL		ATH9K_2GHZ_CH01_11, \
 				ATH9K_2GHZ_CH12_13, \
