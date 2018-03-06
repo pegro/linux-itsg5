@@ -212,6 +212,7 @@ IEEE80211_IF_FILE(state, state, LHEX);
 IEEE80211_IF_FILE(txpower, vif.bss_conf.txpower, DEC);
 IEEE80211_IF_FILE(ap_power_level, ap_power_level, DEC);
 IEEE80211_IF_FILE(user_power_level, user_power_level, DEC);
+IEEE80211_IF_FILE(noack_map, noack_map, HEX);
 
 static ssize_t
 ieee80211_if_fmt_hw_queues(const struct ieee80211_sub_if_data *sdata,
@@ -783,6 +784,7 @@ static void add_files(struct ieee80211_sub_if_data *sdata)
 	DEBUGFS_ADD(txpower);
 	DEBUGFS_ADD(user_power_level);
 	DEBUGFS_ADD(ap_power_level);
+	DEBUGFS_ADD(noack_map);
 
 	if (sdata->vif.type != NL80211_IFTYPE_MONITOR)
 		add_common_files(sdata);
