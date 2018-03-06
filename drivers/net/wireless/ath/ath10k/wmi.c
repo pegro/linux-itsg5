@@ -8378,6 +8378,7 @@ int ath10k_wmi_op_get_vdev_subtype(struct ath10k *ar,
 		return WMI_VDEV_SUBTYPE_LEGACY_PROXY_STA;
 	case WMI_VDEV_SUBTYPE_MESH_11S:
 	case WMI_VDEV_SUBTYPE_MESH_NON_11S:
+	case WMI_VDEV_SUBTYPE_OCB:
 		return -ENOTSUPP;
 	}
 	return -ENOTSUPP;
@@ -8401,6 +8402,8 @@ static int ath10k_wmi_10_2_4_op_get_vdev_subtype(struct ath10k *ar,
 		return WMI_VDEV_SUBTYPE_10_2_4_MESH_11S;
 	case WMI_VDEV_SUBTYPE_MESH_NON_11S:
 		return -ENOTSUPP;
+	case WMI_VDEV_SUBTYPE_OCB:
+		return WMI_VDEV_SUBTYPE_10_2_4_OCB;
 	}
 	return -ENOTSUPP;
 }
@@ -8423,6 +8426,8 @@ static int ath10k_wmi_10_4_op_get_vdev_subtype(struct ath10k *ar,
 		return WMI_VDEV_SUBTYPE_10_4_MESH_11S;
 	case WMI_VDEV_SUBTYPE_MESH_NON_11S:
 		return WMI_VDEV_SUBTYPE_10_4_MESH_NON_11S;
+	case WMI_VDEV_SUBTYPE_OCB:
+		return -ENOTSUPP;
 	}
 	return -ENOTSUPP;
 }
