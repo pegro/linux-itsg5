@@ -1446,5 +1446,14 @@ int ath9k_init_debug(struct ath_hw *ah)
 	debugfs_create_file("nf_override", 0600,
 			    sc->debug.debugfs_phy, sc, &fops_nf_override);
 
+	debugfs_create_bool("rx_intr_mitigation", S_IRUSR, sc->debug.debugfs_phy,
+			    &ah->config.rx_intr_mitigation);
+
+	debugfs_create_u16("rimt_last", S_IRUSR, sc->debug.debugfs_phy,
+			    &ah->config.rimt_last);
+
+	debugfs_create_u16("rimt_first", S_IRUSR, sc->debug.debugfs_phy,
+			    &ah->config.rimt_first);
+
 	return 0;
 }
