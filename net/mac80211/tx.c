@@ -2660,6 +2660,8 @@ static struct sk_buff *ieee80211_build_hdr(struct ieee80211_sub_if_data *sdata,
 			goto free;
 		}
 		band = chanctx_conf->def.chan->band;
+		/* request TX status, so we get notified on sent packets */
+		info_flags |= IEEE80211_TX_CTL_REQ_TX_STATUS;
 		break;
 	case NL80211_IFTYPE_ADHOC:
 		/* DA SA BSSID */
