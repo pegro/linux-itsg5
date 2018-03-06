@@ -44,14 +44,22 @@ static struct ieee80211_rate ath10k_rates[] = {
 	  .hw_value_short = ATH10K_HW_RATE_CCK_SP_11M,
 	  .flags = IEEE80211_RATE_SHORT_PREAMBLE },
 
-	{ .bitrate = 60, .hw_value = ATH10K_HW_RATE_OFDM_6M },
-	{ .bitrate = 90, .hw_value = ATH10K_HW_RATE_OFDM_9M },
-	{ .bitrate = 120, .hw_value = ATH10K_HW_RATE_OFDM_12M },
-	{ .bitrate = 180, .hw_value = ATH10K_HW_RATE_OFDM_18M },
-	{ .bitrate = 240, .hw_value = ATH10K_HW_RATE_OFDM_24M },
-	{ .bitrate = 360, .hw_value = ATH10K_HW_RATE_OFDM_36M },
-	{ .bitrate = 480, .hw_value = ATH10K_HW_RATE_OFDM_48M },
-	{ .bitrate = 540, .hw_value = ATH10K_HW_RATE_OFDM_54M },
+	{ .bitrate = 60, .hw_value = ATH10K_HW_RATE_OFDM_6M,
+	  .flags = (IEEE80211_RATE_SUPPORTS_5MHZ | IEEE80211_RATE_SUPPORTS_10MHZ) },
+	{ .bitrate = 90, .hw_value = ATH10K_HW_RATE_OFDM_9M,
+	  .flags = (IEEE80211_RATE_SUPPORTS_5MHZ | IEEE80211_RATE_SUPPORTS_10MHZ) },
+	{ .bitrate = 120, .hw_value = ATH10K_HW_RATE_OFDM_12M,
+	  .flags = (IEEE80211_RATE_SUPPORTS_5MHZ | IEEE80211_RATE_SUPPORTS_10MHZ) },
+	{ .bitrate = 180, .hw_value = ATH10K_HW_RATE_OFDM_18M,
+	  .flags = (IEEE80211_RATE_SUPPORTS_5MHZ | IEEE80211_RATE_SUPPORTS_10MHZ) },
+	{ .bitrate = 240, .hw_value = ATH10K_HW_RATE_OFDM_24M,
+	  .flags = (IEEE80211_RATE_SUPPORTS_5MHZ | IEEE80211_RATE_SUPPORTS_10MHZ) },
+	{ .bitrate = 360, .hw_value = ATH10K_HW_RATE_OFDM_36M,
+	  .flags = (IEEE80211_RATE_SUPPORTS_5MHZ | IEEE80211_RATE_SUPPORTS_10MHZ) },
+	{ .bitrate = 480, .hw_value = ATH10K_HW_RATE_OFDM_48M,
+	  .flags = (IEEE80211_RATE_SUPPORTS_5MHZ | IEEE80211_RATE_SUPPORTS_10MHZ) },
+	{ .bitrate = 540, .hw_value = ATH10K_HW_RATE_OFDM_54M,
+	  .flags = (IEEE80211_RATE_SUPPORTS_5MHZ | IEEE80211_RATE_SUPPORTS_10MHZ) },
 };
 
 static struct ieee80211_rate ath10k_rates_rev2[] = {
@@ -8314,7 +8322,14 @@ static const struct ieee80211_channel ath10k_5ghz_channels[] = {
 	CHAN5G(161, 5805, 0),
 	CHAN5G(165, 5825, 0),
 	CHAN5G(169, 5845, 0),
-	CHAN5G(173, 5865, 0),
+	CHAN5G(172, 5860, 0),
+	/*CHAN5G(173, 5865, 0),*/
+	CHAN5G(174, 5870, 0),
+	CHAN5G(176, 5880, 0),
+	CHAN5G(178, 5890, 0),
+	CHAN5G(180, 5900, 0),
+	CHAN5G(182, 5910, 0),
+	CHAN5G(184, 5920, 0),
 	/* If you add more, you may need to change ATH10K_MAX_5G_CHAN */
 	/* And you will definitely need to change ATH10K_NUM_CHANS in core.h */
 };
