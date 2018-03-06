@@ -5005,6 +5005,11 @@ static int ath10k_add_interface(struct ieee80211_hw *hw,
 	case NL80211_IFTYPE_ADHOC:
 		arvif->vdev_type = WMI_VDEV_TYPE_IBSS;
 		break;
+	case NL80211_IFTYPE_OCB:
+		arvif->vdev_type = WMI_VDEV_TYPE_STA;
+		arvif->vdev_subtype = ath10k_wmi_get_vdev_subtype
+					(ar, WMI_VDEV_SUBTYPE_OCB);
+		break;
 	case NL80211_IFTYPE_MESH_POINT:
 		if (test_bit(WMI_SERVICE_MESH_11S, ar->wmi.svc_map)) {
 			arvif->vdev_subtype = ath10k_wmi_get_vdev_subtype
@@ -5486,7 +5491,8 @@ static void ath10k_bss_info_changed(struct ieee80211_hw *hw,
 		arvif->u.ap.hidden_ssid = info->hidden_ssid;
 	}
 
-	if (changed & BSS_CHANGED_BSSID && !is_zero_ether_addr(info->bssid))
+	if ((changed & BSS_CHANGED_BSSID && !is_zero_ether_addr(info->bssid)) ||
+		(changed & BSS_CHANGED_OCB))
 		ether_addr_copy(arvif->bssid, info->bssid);
 
 	if (changed & BSS_CHANGED_BEACON_ENABLED)
@@ -7801,6 +7807,10 @@ static const struct ieee80211_iface_limit ath10k_if_limits[] = {
 			| BIT(NL80211_IFTYPE_MESH_POINT)
 #endif
 	},
+	{
+		.max	= 1,
+		.types	= BIT(NL80211_IFTYPE_OCB)
+	},
 };
 
 static const struct ieee80211_iface_limit ath10k_10x_if_limits[] = {
@@ -8182,7 +8192,8 @@ int ath10k_mac_register(struct ath10k *ar)
 	ar->hw->wiphy->interface_modes =
 		BIT(NL80211_IFTYPE_STATION) |
 		BIT(NL80211_IFTYPE_AP) |
-		BIT(NL80211_IFTYPE_MESH_POINT);
+		BIT(NL80211_IFTYPE_MESH_POINT) |
+		BIT(NL80211_IFTYPE_OCB);
 
 	ar->hw->wiphy->available_antennas_rx = ar->cfg_rx_chainmask;
 	ar->hw->wiphy->available_antennas_tx = ar->cfg_tx_chainmask;
