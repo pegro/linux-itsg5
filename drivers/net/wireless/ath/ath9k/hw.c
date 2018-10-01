@@ -2513,6 +2513,14 @@ int ath9k_hw_fill_cap_info(struct ath_hw *ah)
 			regulatory->current_rd);
 	}
 
+	if(IS_ENABLED(CONFIG_ATH9K_REGDOM_PUBLIC_SAFETY)) {
+		// XXX: only for ITS applications!
+		// map default regdoms to "FCC4_FCCA" (public safety)
+		if (regulatory->current_rd == 0x00 ||
+			regulatory->current_rd == 0x21)
+			regulatory->current_rd = 0x12;
+	}
+
 	eeval = ah->eep_ops->get_eeprom(ah, EEP_OP_MODE);
 
 	if (eeval & AR5416_OPFLAGS_11A) {

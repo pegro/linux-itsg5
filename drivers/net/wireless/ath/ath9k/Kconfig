@@ -208,6 +208,21 @@ config ATH9K_HWRNG
 	  Say Y, feeds the entropy directly from the WiFi driver to the input
 	  pool.
 
+config ATH9K_REGDOM_PUBLIC_SAFETY
+	bool "Use public safety regulatory domain"
+	depends on ATH9K && CFG80211_CERTIFICATION_ONUS
+	default n
+	---help---
+	  This option enables support for the public safety regulatory
+	  domain. The PS regdom is used, if the EEPROM value is a default
+	  regdom.
+
+	  This option should only be enabled by system integrators that can
+	  guarantee that all the platforms that their kernel will run on
+	  have obtained appropriate regulatory body certification for a
+	  respective Atheros card by using ath9k on the target shipping
+	  platforms.
+
 config ATH9K_COMMON_SPECTRAL
 	bool "Atheros ath9k/ath9k_htc spectral scan support"
 	depends on ATH9K_DEBUGFS || ATH9K_HTC_DEBUGFS
